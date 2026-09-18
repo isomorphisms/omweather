@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialKeyguardLayout="@layout/weather_summary_bar_widget"
+    android:initialLayout="@layout/weather_summary_bar_widget"
+    android:minHeight="56dp"
+    android:minWidth="250dp"
+    android:minResizeHeight="48dp"
+    android:minResizeWidth="180dp"
+    android:resizeMode="horizontal"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen" />
