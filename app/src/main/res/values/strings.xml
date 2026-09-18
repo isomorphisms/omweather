@@ -66,6 +66,8 @@
     <string name="about_where_from_answer">Weather information is fetched from</string>
     <string name="about_permissions">Permissions</string>
     <string name="long_press_text">Hold and drag to sort.</string>
+    <string name="manage_locations_empty">Tap + to add a location.</string>
+    <string name="manage_locations_waiting_gps">Waiting for current location… You can also tap + to search.</string>
     <string name="swipe_to_delete">Swipe to delete</string>
     <string name="settings_title_display_options">Display options</string>
     <string name="infoProvider">Weather information is fetched from Open-Meteo.com \&amp; LibreWXR.net</string>
