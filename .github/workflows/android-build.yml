@@ -10,6 +10,8 @@ permissions:
 jobs:
   assemble-debug:
     runs-on: ubuntu-latest
+    env:
+      OMWEATHER_TEST_KEYSTORE: ${{ github.workspace }}/ci/omweather-ci-debug.keystore
 
     steps:
       - name: Check out exact revision
@@ -25,17 +27,25 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          install -d -m 700 "$HOME/.android"
-          base64 --decode ci/omweather-ci-debug.keystore.b64 > "$HOME/.android/debug.keystore"
-          chmod 600 "$HOME/.android/debug.keystore"
+          base64 --decode ci/omweather-ci-debug.keystore.b64 > "$OMWEATHER_TEST_KEYSTORE"
+          chmod 600 "$OMWEATHER_TEST_KEYSTORE"
           keytool -list -v \
-            -keystore "$HOME/.android/debug.keystore" \
+            -keystore "$OMWEATHER_TEST_KEYSTORE" \
             -storepass android \
             -alias androiddebugkey \
             | grep -F 'SHA256: D9:7B:EA:5A:D8:A6:03:94:B8:4D:3B:24:56:16:EB:69:4A:F6:70:A4:3C:1E:52:7F:8F:0D:3C:AA:A5:1C:AF:2A'
 
       - name: Record toolchain
         run: ./gradlew --version
+
+      - name: Verify Gradle signing configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon :app:signingReport | tee /tmp/omweather-signing-report.txt
+          grep -Fq \
+            'D9:7B:EA:5A:D8:A6:03:94:B8:4D:3B:24:56:16:EB:69:4A:F6:70:A4:3C:1E:52:7F:8F:0D:3C:AA:A5:1C:AF:2A' \
+            /tmp/omweather-signing-report.txt
 
       - name: Assemble debug APK
         run: ./gradlew --no-daemon --stacktrace :app:assembleDebug

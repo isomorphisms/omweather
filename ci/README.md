@@ -4,7 +4,7 @@
 identity for debug APKs produced by this repository's GitHub Actions workflow.
 
 It is intentionally not a production or store signing key. The workflow decodes
-it to the standard Android debug-keystore location before building, so repeated
+it to a temporary keystore and passes that path explicitly to Gradle, so repeated
 CI APKs for `org.woheller69.omweather` retain the same test signer instead of
 creating a new signer on every hosted runner.
 
