@@ -21,13 +21,26 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Install persistent test signing identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -d -m 700 "$HOME/.android"
+          base64 --decode ci/omweather-ci-debug.keystore.b64 > "$HOME/.android/debug.keystore"
+          chmod 600 "$HOME/.android/debug.keystore"
+          keytool -list -v \
+            -keystore "$HOME/.android/debug.keystore" \
+            -storepass android \
+            -alias androiddebugkey \
+            | grep -F 'SHA256: D9:7B:EA:5A:D8:A6:03:94:B8:4D:3B:24:56:16:EB:69:4A:F6:70:A4:3C:1E:52:7F:8F:0D:3C:AA:A5:1C:AF:2A'
+
       - name: Record toolchain
         run: ./gradlew --version
 
       - name: Assemble debug APK
         run: ./gradlew --no-daemon --stacktrace :app:assembleDebug
 
-      - name: Verify APK package
+      - name: Verify APK package and signer
         shell: bash
         run: |
           set -euo pipefail
@@ -37,6 +50,11 @@ jobs:
           zipinfo -1 "$apk" | grep -qx 'AndroidManifest.xml'
           zipinfo -1 "$apk" | grep -qx 'resources.arsc'
           zipinfo -1 "$apk" | grep -q '^classes.*\.dex$'
+          keytool -printcert -jarfile "$apk" \
+            | tee /tmp/omweather-apk-certificate.txt
+          grep -Fq \
+            'SHA256: D9:7B:EA:5A:D8:A6:03:94:B8:4D:3B:24:56:16:EB:69:4A:F6:70:A4:3C:1E:52:7F:8F:0D:3C:AA:A5:1C:AF:2A' \
+            /tmp/omweather-apk-certificate.txt
           sha256sum "$apk"
 
       - name: Upload debug APK
