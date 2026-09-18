@@ -96,3 +96,5 @@ jobs:
             adb install -r downloaded-apk/app-debug.apk
             adb install -r downloaded-apk/app-debug.apk
             adb shell pm path org.woheller69.omweather | grep -Fq 'package:'
+            adb shell dumpsys package org.woheller69.omweather | grep -Fq 'WeatherSummaryBarWidget'
+            adb shell dumpsys appwidget | grep -Fq 'WeatherSummaryBarWidget'
