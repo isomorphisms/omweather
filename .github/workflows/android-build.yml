@@ -92,7 +92,6 @@ jobs:
           disable-animations: true
           script: |
             set -eu
-            apk=downloaded-apk/app-debug.apk
-            adb install -r "$apk"
-            adb install -r "$apk"
+            adb install -r downloaded-apk/app-debug.apk
+            adb install -r downloaded-apk/app-debug.apk
             adb shell pm path org.woheller69.omweather | grep -Fq 'package:'
