@@ -137,4 +137,17 @@
     <string name="settings_show_infrared">Show clouds</string>
     <string name="settings_radar_widget_zoom">Radar widget zoom</string>
     <string name="donate_librewxr">Support LibreWXR</string>
+    <string name="weather_summary_bar_widget">Weather summary bar</string>
+    <string name="weather_summary_no_rain">No rain</string>
+    <string name="weather_summary_rain_now">now</string>
+    <string name="weather_summary_week_empty">No weekly forecast</string>
+    <string name="weather_summary_bar_top">%1$s  ☔ %2$s  H %3$s  Prev L %4$s  Tonight L %5$s</string>
+    <string name="moon_phase_new">New</string>
+    <string name="moon_phase_waxing_crescent">Waxing crescent</string>
+    <string name="moon_phase_first_quarter">First quarter</string>
+    <string name="moon_phase_waxing_gibbous">Waxing gibbous</string>
+    <string name="moon_phase_full">Full</string>
+    <string name="moon_phase_waning_gibbous">Waning gibbous</string>
+    <string name="moon_phase_last_quarter">Last quarter</string>
+    <string name="moon_phase_waning_crescent">Waning crescent</string>
 </resources>

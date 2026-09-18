@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/weather_summary_bar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_bar_background"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingStart="14dp"
+    android:paddingTop="5dp"
+    android:paddingEnd="14dp"
+    android:paddingBottom="5dp">
+
+    <TextView
+        android:id="@+id/weather_summary_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="🌗 Last quarter  ☔ 14:15  H 74°F  Prev L 51°F  Tonight L 54°F"
+        android:textColor="@color/white"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/weather_summary_week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="Sa. 72/50°F  •  Su. 68/47°F  •  Mo. 70/49°F  •  Tu. 74/52°F"
+        android:textColor="@color/lightgrey"
+        android:textSize="11sp" />
+
+</LinearLayout>

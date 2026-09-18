@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+def ciTestKeystorePath = System.getenv("OMWEATHER_TEST_KEYSTORE")
+
 android {
     lintOptions {
         disable 'MissingTranslation'
@@ -27,7 +29,23 @@ android {
         buildConfigField "String", "GITHUB_URL","\"https://github.com/woheller69/omweather/\""
     }
 
+    if (ciTestKeystorePath) {
+        signingConfigs {
+            ciTest {
+                storeFile rootProject.file(ciTestKeystorePath)
+                storePassword 'android'
+                keyAlias 'androiddebugkey'
+                keyPassword 'android'
+            }
+        }
+    }
+
     buildTypes {
+        debug {
+            if (ciTestKeystorePath) {
+                signingConfig signingConfigs.ciTest
+            }
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

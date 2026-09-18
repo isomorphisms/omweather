@@ -27,6 +27,7 @@ import org.woheller69.weather.widget.RadarWidget;
 import org.woheller69.weather.widget.WeatherDigitalClockWidget;
 import org.woheller69.weather.widget.WeatherWidget;
 import org.woheller69.weather.widget.WeatherWidget5day;
+import org.woheller69.weather.widget.WeatherSummaryBarWidget;
 import static org.woheller69.weather.database.SQLiteHelper.getWidgetCityID;
 
 import androidx.preference.PreferenceManager;
@@ -303,7 +304,19 @@ public class ProcessOMweatherAPIRequest implements IProcessHttpRequest {
             }
         }
 
-        //search for 5day widgets with same city ID
+        //search for summary-bar widgets with same city ID
+        int widgetSummaryBarCityID = getWidgetCityID(context);
+        int[] widgetSummaryBarIDs = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WeatherSummaryBarWidget.class));
+
+        for (int widgetID : widgetSummaryBarIDs) {
+            if (cityID == widgetSummaryBarCityID) {
+                RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_summary_bar_widget);
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                WeatherSummaryBarWidget.updateView(context, appWidgetManager, views, widgetID, weekforecasts, hourlyforecasts);
+            }
+        }
+
+        //search for radar widgets with same city ID
         int radarWidgetCityID= getWidgetCityID(context);
         int[] radarWidgetIDs = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, RadarWidget.class));
 
